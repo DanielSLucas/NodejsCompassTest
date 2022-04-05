@@ -26,6 +26,15 @@ class FakeCitiesRepository implements ICitiesRepository {
 
     return findCity;
   }
+
+  async findCities(name?: string, state?: string): Promise<City[]> {
+    return this.cities.filter(city => {
+      const nameFilter = name ? city.name === name : true;
+      const stateFilter = state ? city.state === state : true;
+
+      return nameFilter && stateFilter;
+    });
+  }
 }
 
 export { FakeCitiesRepository };

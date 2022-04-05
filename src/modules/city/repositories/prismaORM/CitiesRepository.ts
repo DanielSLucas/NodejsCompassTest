@@ -23,6 +23,24 @@ class CitiesRepository implements ICitiesRepository {
 
     return city;
   }
+
+  async findCities(name?: string, state?: string): Promise<City[]> {
+    const filters = {};
+
+    if (name) {
+      Object.assign(filters, { name });
+    }
+
+    if (state) {
+      Object.assign(filters, { name });
+    }
+
+    const cities = await this.repository.findMany({
+      where: filters,
+    });
+
+    return cities;
+  }
 }
 
 export { CitiesRepository };
