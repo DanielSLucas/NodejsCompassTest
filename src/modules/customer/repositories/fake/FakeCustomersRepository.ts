@@ -1,6 +1,7 @@
 import { Customer } from "@prisma/client";
 import { randomUUID } from "crypto";
 import { CreateCustomerDTO } from "modules/customer/dtos/createCustomer";
+import { CustomerFilters } from "modules/customer/services/FindCustomersService";
 import { ICustomersRepository } from "../ICustomersRepository";
 
 class FakeCustomersRepository implements ICustomersRepository {
@@ -21,6 +22,14 @@ class FakeCustomersRepository implements ICustomersRepository {
     return (
       this.customers.find(customer => customer.fullName === fullName) || null
     );
+  }
+
+  async findCustomers({ fullName }: CustomerFilters): Promise<Customer[]> {
+    return this.customers.filter(customer => {
+      const nameFilter = fullName ? customer.fullName === fullName : true;
+
+      return nameFilter;
+    });
   }
 }
 
