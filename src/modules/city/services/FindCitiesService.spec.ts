@@ -12,6 +12,7 @@ describe("FindCitiesService", () => {
     createCityService = new CreateCityService(fakeCityRepository);
     findCitiesService = new FindCitiesService(fakeCityRepository);
   });
+
   it("Should be able to list all cities", async () => {
     await createCityService.execute({
       name: "Guaratinguetá",

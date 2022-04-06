@@ -3,13 +3,18 @@ import { FakeCustomersRepository } from "../repositories/fake/FakeCustomersRepos
 import { CreateCustomerService } from "./CreateCustomerService";
 import { FindCustomerByIdService } from "./FindCustomerByIdService";
 
+let fakeCustomerRepository: FakeCustomersRepository;
+let findCustomerByIdService: FindCustomerByIdService;
 describe("FindCustomerByIdService", () => {
-  it("Should be able to find a customer by id", async () => {
-    const fakeCustomerRepository = new FakeCustomersRepository();
-    const createCustomerService = new CreateCustomerService(
+  beforeEach(() => {
+    fakeCustomerRepository = new FakeCustomersRepository();
+    findCustomerByIdService = new FindCustomerByIdService(
       fakeCustomerRepository,
     );
-    const findCustomerByIdService = new FindCustomerByIdService(
+  });
+
+  it("Should be able to find a customer by id", async () => {
+    const createCustomerService = new CreateCustomerService(
       fakeCustomerRepository,
     );
 
@@ -32,11 +37,6 @@ describe("FindCustomerByIdService", () => {
   });
 
   it("Should not be able to find a customer unsing an non-existent id", async () => {
-    const fakeCustomerRepository = new FakeCustomersRepository();
-    const findCustomerByIdService = new FindCustomerByIdService(
-      fakeCustomerRepository,
-    );
-
     await expect(
       findCustomerByIdService.execute("non-existent-id"),
     ).rejects.toBeInstanceOf(AppError);

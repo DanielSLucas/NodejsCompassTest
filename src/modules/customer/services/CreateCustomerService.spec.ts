@@ -2,13 +2,15 @@ import { AppError } from "../../../shared/errors/AppError";
 import { FakeCustomersRepository } from "../repositories/fake/FakeCustomersRepository";
 import { CreateCustomerService } from "./CreateCustomerService";
 
+let fakeCustomerRepository: FakeCustomersRepository;
+let createCustomerService: CreateCustomerService;
 describe("CreateCustomerService", () => {
-  it("Should be able to create an customer with an id", async () => {
-    const fakeCustomerRepository = new FakeCustomersRepository();
-    const createCustomerService = new CreateCustomerService(
-      fakeCustomerRepository,
-    );
+  beforeEach(() => {
+    fakeCustomerRepository = new FakeCustomersRepository();
+    createCustomerService = new CreateCustomerService(fakeCustomerRepository);
+  });
 
+  it("Should be able to create an customer with an id", async () => {
     const customer = await createCustomerService.execute({
       fullName: "John Doe",
       sex: "male",
@@ -26,11 +28,6 @@ describe("CreateCustomerService", () => {
   });
 
   it("Should not be able to create two customers with same name", async () => {
-    const fakeCustomerRepository = new FakeCustomersRepository();
-    const createCustomerService = new CreateCustomerService(
-      fakeCustomerRepository,
-    );
-
     await createCustomerService.execute({
       fullName: "John Doe",
       sex: "male",

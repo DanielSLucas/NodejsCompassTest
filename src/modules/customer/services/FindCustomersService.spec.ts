@@ -2,16 +2,17 @@ import { FakeCustomersRepository } from "../repositories/fake/FakeCustomersRepos
 import { CreateCustomerService } from "./CreateCustomerService";
 import { FindCustomersService } from "./FindCustomersService";
 
+let fakeCustomerRepository: FakeCustomersRepository;
+let createCustomerService: CreateCustomerService;
+let findCustomersService: FindCustomersService;
 describe("FindCustomersService", () => {
-  it("Should be able list all customers", async () => {
-    const fakeCustomerRepository = new FakeCustomersRepository();
-    const createCustomerService = new CreateCustomerService(
-      fakeCustomerRepository,
-    );
-    const findCustomersService = new FindCustomersService(
-      fakeCustomerRepository,
-    );
+  beforeEach(() => {
+    fakeCustomerRepository = new FakeCustomersRepository();
+    createCustomerService = new CreateCustomerService(fakeCustomerRepository);
+    findCustomersService = new FindCustomersService(fakeCustomerRepository);
+  });
 
+  it("Should be able list all customers", async () => {
     const customer1 = await createCustomerService.execute({
       fullName: "John Doe",
       sex: "male",
@@ -36,14 +37,6 @@ describe("FindCustomersService", () => {
   });
 
   it("Should be able find a customer by name", async () => {
-    const fakeCustomerRepository = new FakeCustomersRepository();
-    const createCustomerService = new CreateCustomerService(
-      fakeCustomerRepository,
-    );
-    const findCustomersService = new FindCustomersService(
-      fakeCustomerRepository,
-    );
-
     const searchedCustomer = await createCustomerService.execute({
       fullName: "John Doe",
       sex: "male",
