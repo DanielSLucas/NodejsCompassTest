@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --inspect --exit-child --transpile-only --ignore-watch node_modules --respawn src/shared/http/server.ts",
     "build": "tsc",
-    "start": "node ./dist/shared/infra/http/server.js",
+    "start": "node ./dist/src/shared/http/server.js",
     "test": "NODE_ENV=test jest --runInBand --detectOpenHandles"
   },
   "dependencies": {
