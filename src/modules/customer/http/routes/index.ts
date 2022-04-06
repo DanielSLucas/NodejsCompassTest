@@ -2,11 +2,13 @@ import { celebrate, Joi, Segments } from "celebrate";
 import { Router } from "express";
 import { CreateCustomerController } from "../controllers/CreateCustomerController";
 import { FindCustomersController } from "../controllers/FindCustomersController";
+import { FindCustomerByIdController } from "../controllers/FindCustomerByIdController";
 
 const customersRoutes = Router();
 
 const createCustomerController = new CreateCustomerController();
 const findCustomersController = new FindCustomersController();
+const findCustomerByIdController = new FindCustomerByIdController();
 
 customersRoutes.post(
   "/",
@@ -30,6 +32,16 @@ customersRoutes.get(
     }),
   }),
   findCustomersController.handle,
+);
+
+customersRoutes.get(
+  "/:id",
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.string().uuid().required(),
+    }),
+  }),
+  findCustomerByIdController.handle,
 );
 
 export { customersRoutes };

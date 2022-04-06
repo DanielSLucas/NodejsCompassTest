@@ -31,6 +31,10 @@ class FakeCustomersRepository implements ICustomersRepository {
       return nameFilter;
     });
   }
+
+  async findCustomerById(id: string): Promise<Customer | null> {
+    return this.customers.find(customer => customer.id === id) || null;
+  }
 }
 
 export { FakeCustomersRepository };

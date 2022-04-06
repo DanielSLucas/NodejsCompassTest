@@ -44,5 +44,18 @@ class CustomersRepository implements ICustomersRepository {
 
     return customers;
   }
+
+  async findCustomerById(id: string): Promise<Customer | null> {
+    const customer = await this.repository.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        city: true,
+      },
+    });
+
+    return customer;
+  }
 }
 export { CustomersRepository };
