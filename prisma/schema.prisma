@@ -8,9 +8,28 @@ datasource db {
 }
 
 model City {
-  id    String @id @default(uuid())
-  name  String
-  state String
+  id       String     @id @default(uuid())
+  name     String     @unique
+  state    String
+  Customer Customer[]
 
   @@map("cities")
+}
+
+model Customer {
+  id        String   @id @default(uuid())
+  fullName  String
+  state     String
+  sex       Sex
+  birthDate DateTime
+  age       Int
+  city_id   String
+  city      City     @relation(fields: [city_id], references: [id])
+
+  @@map("customers")
+}
+
+enum Sex {
+  male
+  female
 }
