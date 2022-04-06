@@ -42,6 +42,16 @@ class FakeCustomersRepository implements ICustomersRepository {
     );
     this.customers.splice(customerIndex, 1);
   }
+
+  async updateCustomerName(id: string, fullName: string): Promise<Customer> {
+    const customerIndex = this.customers.findIndex(
+      customer => customer.id === id,
+    );
+
+    this.customers[customerIndex].fullName = fullName;
+
+    return this.customers[customerIndex];
+  }
 }
 
 export { FakeCustomersRepository };

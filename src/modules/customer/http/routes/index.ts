@@ -5,6 +5,7 @@ import { CreateCustomerController } from "../controllers/CreateCustomerControlle
 import { FindCustomersController } from "../controllers/FindCustomersController";
 import { FindCustomerByIdController } from "../controllers/FindCustomerByIdController";
 import { RemoveCustomerByIdController } from "../controllers/RemoveCustomerByIdController";
+import { UpdateCustomerFullNameController } from "../controllers/UpdateCustomerFullNameController";
 
 const customersRoutes = Router();
 
@@ -12,6 +13,7 @@ const createCustomerController = new CreateCustomerController();
 const findCustomersController = new FindCustomersController();
 const findCustomerByIdController = new FindCustomerByIdController();
 const removeCustomerByIdController = new RemoveCustomerByIdController();
+const updateCustomerFullNameController = new UpdateCustomerFullNameController();
 
 customersRoutes.post(
   "/",
@@ -55,6 +57,19 @@ customersRoutes.delete(
     }),
   }),
   removeCustomerByIdController.handle,
+);
+
+customersRoutes.patch(
+  "/:id",
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.string().uuid().required(),
+    }),
+    [Segments.BODY]: Joi.object().keys({
+      fullName: Joi.string().required(),
+    }),
+  }),
+  updateCustomerFullNameController.handle,
 );
 
 export { customersRoutes };

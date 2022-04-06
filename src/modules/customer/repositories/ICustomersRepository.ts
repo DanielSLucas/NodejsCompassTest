@@ -8,4 +8,5 @@ export interface ICustomersRepository {
   findCustomerById(id: string): Promise<Customer | null>;
   findCustomers(filters: CustomerFilters): Promise<Customer[]>;
   removeCustomerById(id: string): Promise<void>;
+  updateCustomerName(id: string, fullName: string): Promise<Customer>;
 }

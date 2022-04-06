@@ -65,5 +65,16 @@ class CustomersRepository implements ICustomersRepository {
       },
     });
   }
+
+  async updateCustomerName(id: string, fullName: string): Promise<Customer> {
+    return this.repository.update({
+      data: {
+        fullName,
+      },
+      where: {
+        id,
+      },
+    });
+  }
 }
 export { CustomersRepository };
