@@ -1,14 +1,17 @@
 import { celebrate, Joi, Segments } from "celebrate";
 import { Router } from "express";
+
 import { CreateCustomerController } from "../controllers/CreateCustomerController";
 import { FindCustomersController } from "../controllers/FindCustomersController";
 import { FindCustomerByIdController } from "../controllers/FindCustomerByIdController";
+import { RemoveCustomerByIdController } from "../controllers/RemoveCustomerByIdController";
 
 const customersRoutes = Router();
 
 const createCustomerController = new CreateCustomerController();
 const findCustomersController = new FindCustomersController();
 const findCustomerByIdController = new FindCustomerByIdController();
+const removeCustomerByIdController = new RemoveCustomerByIdController();
 
 customersRoutes.post(
   "/",
@@ -42,6 +45,16 @@ customersRoutes.get(
     }),
   }),
   findCustomerByIdController.handle,
+);
+
+customersRoutes.delete(
+  "/:id",
+  celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+      id: Joi.string().uuid().required(),
+    }),
+  }),
+  removeCustomerByIdController.handle,
 );
 
 export { customersRoutes };

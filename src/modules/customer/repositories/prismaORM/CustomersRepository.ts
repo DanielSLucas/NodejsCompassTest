@@ -57,5 +57,13 @@ class CustomersRepository implements ICustomersRepository {
 
     return customer;
   }
+
+  async removeCustomerById(id: string): Promise<void> {
+    await this.repository.delete({
+      where: {
+        id,
+      },
+    });
+  }
 }
 export { CustomersRepository };
