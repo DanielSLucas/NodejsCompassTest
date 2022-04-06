@@ -10,7 +10,7 @@ describe("CreateCityService", () => {
     createCityService = new CreateCityService(fakeCityRepository);
   });
 
-  it("Should be able to create a city with an id", async () => {
+  it("Should be able to create a city", async () => {
     const city = await createCityService.execute({
       name: "Guaratinguetá",
       state: "São Paulo",
