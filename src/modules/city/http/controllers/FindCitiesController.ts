@@ -9,12 +9,12 @@ class FindCitiesController {
 
       const findCitiesService = container.resolve(FindCitiesService);
 
-      const city = await findCitiesService.execute({
+      const cities = await findCitiesService.execute({
         name: name as string | undefined,
         state: state as string | undefined,
       });
 
-      return response.status(201).json(city);
+      return response.status(200).json(cities);
     } catch (error) {
       return response.status(400).json({ error });
     }
