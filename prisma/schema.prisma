@@ -19,7 +19,6 @@ model City {
 model Customer {
   id        String   @id @default(uuid())
   fullName  String   @unique
-  state     String
   sex       Sex
   birthDate DateTime
   age       Int
